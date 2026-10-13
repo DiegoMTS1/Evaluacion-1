@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evaluacion 1</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <div class="contenedor">
+        <h1>Evaluación Formativa</h1>
+        <form id="formulario">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="carrera">Carrera</label>
+            <select id="carrera" name="carrera" required>
+                <option value="">Selecciona una carrera</option>
+                <option value="informatica">Informática</option>
+                <option value="enfermeria">Enfermería</option>
+                <option value="administracion">Administración</option>
+            </select>
+            <label for="correo">Correo electrónico</label>
+            <input type="email" id="correo" name="correo" required>
+
+            <button type="submit">Enviar</button>
+        </form>
+        <div id="resultado" aria-live="polite" hidden></div>
+    </div>
+    <script>
+        const formulario = document.getElementById("formulario");
+
+        formulario.addEventListener("submit", (evento) => {
+            evento.preventDefault();
+
+            const nombre = document.getElementById("nombre").value.trim();
+            const carreraSelect = document.getElementById("carrera");
+            const carrera = carreraSelect.options[carreraSelect.selectedIndex].text;
+            const correo = document.getElementById("correo").value.trim();
+            const resultado = document.getElementById("resultado");
+
+            resultado.replaceChildren();
+
+            const titulo = document.createElement("h2");
+            titulo.textContent = "Datos enviados";
+            resultado.appendChild(titulo);
+
+            [
+                ["Nombre", nombre],
+                ["Carrera", carrera],
+                ["Correo electrónico", correo]
+            ].forEach(([etiqueta, valor]) => {
+                const parrafo = document.createElement("p");
+                parrafo.textContent = `${etiqueta}: ${valor}`;
+                resultado.appendChild(parrafo);
+            });
+
+            resultado.hidden = false;
+        });
+    </script>
+</body>
+</html>
